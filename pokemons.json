@@ -4332,6 +4332,12 @@
       "types": ["electric"],
       "url": "https://res.cloudinary.com/djwwymlhz/image/upload/v1690013868/gdz07mvpw7v6qjsjjtyj.jpg",
       "abilities": ["all night coding", "immune from deadline"]
+    },
+    {
+      "name": "IHatePokemon",
+      "id": "1235",
+      "url": "https://res.cloudinary.com/djwwymlhz/image/upload/v1691837730/Pokemon-Togepi-Looking-Evil-Next-to-Egg-Meme_tpejxe.jpg",
+      "types": ["poison", "electric"]
     }
   ]
 }

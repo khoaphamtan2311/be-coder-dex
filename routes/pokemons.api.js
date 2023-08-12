@@ -71,19 +71,21 @@ router.get("/:pokemonId", (req, res, next) => {
     const specialPokemonIndex = pokemons.findIndex(
       (pokemon) => pokemon.id === pokemonId
     );
+    console.log("specialPokemonIndex ", specialPokemonIndex);
+    console.log("pokemon", pokemons.length);
     if (specialPokemonIndex === 0) {
       result = [pokemons[pokemons.length - 1], pokemons[0], pokemons[1]];
     } else if (specialPokemonIndex === pokemons.length - 1) {
       result = [
-        pokemons[pokemons.length - 2],
-        pokemons[pokemons.length - 1],
+        pokemons[specialPokemonIndex - 1],
+        pokemons[specialPokemonIndex],
         pokemons[0],
       ];
     } else {
       result = [
-        pokemons[parseInt(pokemonId) - 2],
-        pokemons[parseInt(pokemonId) - 1],
-        pokemons[parseInt(pokemonId)],
+        pokemons[specialPokemonIndex - 1],
+        pokemons[specialPokemonIndex],
+        pokemons[specialPokemonIndex + 1],
       ];
     }
     const data = {
@@ -171,13 +173,13 @@ router.post("/", (req, res, next) => {
       exception.statusCode = 401;
       throw exception;
     }
-    if (req.body.types.length > 1 && req.body.types.sort((a, b) => a - b)) {
-      const exception = new Error(
-        `Pokemon types must be different from each other.`
-      );
-      exception.statusCode = 401;
-      throw exception;
-    }
+    // if (req.body.types.length > 1 && req.body.types.sort((a, b) => a - b)) {
+    //   const exception = new Error(
+    //     `Pokemon types must be different from each other.`
+    //   );
+    //   exception.statusCode = 401;
+    //   throw exception;
+    // }
     for (let i = 0; i < req.body.types.length; i++) {
       if (!allowedType.find((el) => el === req.body.types[i])) {
         const exception = new Error(`Pokémon's type is invalid.`);
@@ -189,12 +191,14 @@ router.post("/", (req, res, next) => {
       name,
       id: String(id),
       url,
-      types: types.filter(Boolean).map((type) => type.toLowerCase()),
+      types: [types[0], types[1]]
+        .filter(Boolean)
+        .map((type) => type.toLowerCase()),
       description,
       height,
       weight,
       categpry,
-      abilities: abilities.filter(Boolean).map((type) => type.toLowerCase()),
+      abilities,
     };
     console.log(newPokemon.id);
     pokemons.push(newPokemon);
