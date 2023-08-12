@@ -180,8 +180,15 @@ router.post("/", (req, res, next) => {
     //   exception.statusCode = 401;
     //   throw exception;
     // }
-    for (let i = 0; i < req.body.types.length; i++) {
-      if (!allowedType.find((el) => el === req.body.types[i])) {
+    let newTypes = [];
+    if (!types[1]) {
+      console.log("right");
+      newTypes = types.slice(0, 1);
+    } else newTypes = [types[0], types[1]];
+    console.log(newTypes);
+
+    for (let i = 0; i < newTypes.length; i++) {
+      if (!allowedType.find((el) => el === newTypes[i])) {
         const exception = new Error(`Pokémon's type is invalid.`);
         exception.statusCode = 401;
         throw exception;
@@ -191,16 +198,14 @@ router.post("/", (req, res, next) => {
       name,
       id: String(id),
       url,
-      types: [types[0], types[1]]
-        .filter(Boolean)
-        .map((type) => type.toLowerCase()),
+      types: newTypes.map((type) => type.toLowerCase()),
       description,
       height,
       weight,
       categpry,
       abilities,
     };
-    console.log(newPokemon.id);
+    console.log(newPokemon);
     pokemons.push(newPokemon);
     db.pokemons = pokemons;
     db = JSON.stringify(db);
