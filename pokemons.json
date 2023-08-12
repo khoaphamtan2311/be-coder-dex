@@ -4327,10 +4327,10 @@
       "url": "http://res.cloudinary.com/djwwymlhz/image/upload/v1691829156/qpdo2urk3br84yxck2u6.png"
     },
     {
-      "name": "IMadeThis",
       "id": "999",
-      "url": "abc",
+      "name": "IMadeThis",
       "types": ["electric"],
+      "url": "https://res.cloudinary.com/djwwymlhz/image/upload/v1690013868/gdz07mvpw7v6qjsjjtyj.jpg",
       "abilities": ["all night coding", "immune from deadline"]
     }
   ]

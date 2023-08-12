@@ -71,11 +71,14 @@ router.get("/:pokemonId", (req, res, next) => {
     const specialPokemonIndex = pokemons.findIndex(
       (pokemon) => pokemon.id === pokemonId
     );
-    if (
-      specialPokemonIndex === pokemons.length - 1 ||
-      specialPokemonIndex === 0
-    ) {
+    if (specialPokemonIndex === 0) {
       result = [pokemons[pokemons.length - 1], pokemons[0], pokemons[1]];
+    } else if (specialPokemonIndex === pokemons.length - 1) {
+      result = [
+        pokemons[pokemons.length - 2],
+        pokemons[pokemons.length - 1],
+        pokemons[0],
+      ];
     } else {
       result = [
         pokemons[parseInt(pokemonId) - 2],
@@ -83,7 +86,14 @@ router.get("/:pokemonId", (req, res, next) => {
         pokemons[parseInt(pokemonId)],
       ];
     }
-    res.status(200).send(result);
+    const data = {
+      data: {
+        pokemon: result[1],
+        nextPokemon: result[2],
+        previousPokemon: result[0],
+      },
+    };
+    res.status(200).send(data);
   } catch (error) {
     next(error);
   }
